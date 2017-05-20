@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
-
-	public static GameManager instance = null;
+public class GameManager : Singleton<GameManager> {
 
 	public GameObject spawnPoint;
 	public GameObject[] enemies;
@@ -13,21 +11,23 @@ public class GameManager : MonoBehaviour {
 
 	private int enemiesOnScreen = 0;
 
+	const float spawnTime = 0.5f;
+
 	void Awake ()
 	{
-		if (instance = null) {
-			instance = this;
-		} else if(instance != null){
-			Destroy(gameObject);
-		}
-		DontDestroyOnLoad(gameObject);
+		
 	}
 	// Use this for initialization
 	void Start () {
-		spawnEnemies();
+		StartCoroutine(Spawn());
 	}
 
 	void spawnEnemies ()
+	{
+		
+	}
+
+		IEnumerator Spawn ()
 	{
 		if (enemiesPerSpawn > 0 && enemiesOnScreen < totalEnemies) {
 			for (int i = 0; i < enemiesPerSpawn; i++) {
@@ -37,10 +37,17 @@ public class GameManager : MonoBehaviour {
 					enemiesOnScreen += 1;
 				}
 			}
+			yield return new WaitForSeconds(spawnTime);
+			StartCoroutine(Spawn());
 		}
+	
 	}
 
-
+	public void removeEnemiesOnScreen(){
+		if(enemiesOnScreen > 0){
+			enemiesOnScreen -= 1;
+		}
+	}
 
 	// Update is called once per frame
 	void Update () {
