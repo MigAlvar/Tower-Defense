@@ -4,12 +4,9 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	
-	[SerializeField]
-	private Transform exitPoint;
-	[SerializeField]
-	private Transform[] waypoints;
-	[SerializeField]
-	private float navigationUpdate;
+	[SerializeField] private Transform exitPoint;
+	[SerializeField] private Transform[] waypoints;
+	[SerializeField] private float navigationUpdate;
 
 	private int target =0;
 	private Transform enemy;
