@@ -13,6 +13,9 @@ public class Tower : MonoBehaviour {
 	private float attackCounter;
 	private bool isAttacking = false;
 
+
+
+
 	// Use this for initialization
 	void Start () {
 	
@@ -24,7 +27,7 @@ public class Tower : MonoBehaviour {
 		attackCounter -= Time.deltaTime;
 		Enemy nearestEnemy = GetNearestEnemyInRange ();
 
-		if (targetEnemy == null) {
+		if (targetEnemy == null || targetEnemy.IsDead) {
 			if (nearestEnemy != null && Vector2.Distance (transform.position, nearestEnemy.transform.position) <= attackRadius) {
 				targetEnemy = nearestEnemy;
 			}
@@ -41,7 +44,6 @@ public class Tower : MonoBehaviour {
 		}
 
 	}
-
 
 	void FixedUpdate ()
 	{
