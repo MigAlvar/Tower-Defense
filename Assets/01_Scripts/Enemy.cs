@@ -55,6 +55,9 @@ public class Enemy : MonoBehaviour {
 		if (other.tag == "Checkpoint") {
 			target++;
 		} else if (other.tag == "Finish") {
+			GameManager.Instance.WaveEscape +=1;
+			GameManager.Instance.TotaKilled +=1;
+			GameManager.Instance.isWaveOver();
 			GameManager.Instance.UnregisterEnemy (this);
 		}
 		if (newP) {
@@ -66,6 +69,7 @@ public class Enemy : MonoBehaviour {
 	{
 		healthpoints += hitStrength;
 		anim.SetTrigger("isHurt");
+		GameManager.Instance.AudibleSource.PlayOneShot(SoundManager.Instance.Sfx[4]);
 
 		if (healthpoints <= 0){
 			anim.SetTrigger("isDead");
@@ -77,6 +81,10 @@ public class Enemy : MonoBehaviour {
 	{
 		isDead = true;
 		enemyCollider.enabled = false;
+		GameManager.Instance.AudibleSource.PlayOneShot(SoundManager.Instance.Sfx[5]);
+		GameManager.Instance.TotaKilled +=1;
+		GameManager.Instance.ChangeFunds(rewardAmount, false);
+		GameManager.Instance.isWaveOver();
 		//Destroy (this.gameObject);
 	}
 

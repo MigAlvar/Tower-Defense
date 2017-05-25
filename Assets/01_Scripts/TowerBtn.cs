@@ -3,17 +3,18 @@ using UnityEngine.UI;
 
 public class TowerBtn : MonoBehaviour {
 
-	[SerializeField] private GameObject towerObject;
+	[SerializeField] private Tower towerObject;
 	[SerializeField] private Sprite dragSprite;
 	[SerializeField] private Text towerPriceLabel; 
 	[SerializeField] private int towerPrice;
 
 
 	void Start(){
-		towerPriceLabel.text = towerPrice.ToString();
+	towerPriceLabel = GetComponentInChildren<Text>();
+		towerPriceLabel.text = TowerPrice.ToString();
 	}
 
-	public GameObject TowerObject {
+	public Tower TowerObject {
 		get {
 			return towerObject;
 		}
